@@ -104,10 +104,30 @@ class LevelsMenu(Menu):
         self.cursor_rect.midtop = (self.lev1x + self.offset+200, self.lev1y-35)
 
     def display_menu(self):
-        pass
+        self.run_display = True
+        while self.run_display:
+            self.game.check_events()
+            self.check_input()
+            self.game.display = pygame.image.load('img/screen1/backgroung_screen1_3.jpg')
+            self.game.draw_text('Levels', 80, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 120)
+            self.game.draw_text("Level1", 60, self.lev1x, self.lev1y - 20)
+            self.game.draw_text("Level2", 60, self.lev2x, self.lev2y + 80)
+            self.draw_cursor()
+            self.blit_screen()
 
     def check_input(self):
-        pass
+        if self.game.BACK_KEY:
+            self.game.curr_menu = self.game.main_menu
+            self.run_display = False
+        elif self.game.UP_KEY or self.game.DOWN_KEY:
+            if self.state == 'Level1':
+                self.state = 'Level2'
+                self.cursor_rect.midtop = (self.lev2x + self.offset+200, self.lev2y+70)
+            elif self.state == 'Level2':
+                self.state = 'Level1'
+                self.cursor_rect.midtop = (self.lev1x + self.offset+200, self.lev1y-35)
+        elif self.game.START_KEY:
+            pass
 
 
 class ExitMenu(Menu):
