@@ -10,7 +10,7 @@ class Menu():
         self.offset = - 300
 
     def draw_cursor(self):
-        pass
+        self.game.draw_text('~', 150, self.cursor_rect.x - 50, self.cursor_rect.y)
 
     def blit_screen(self):
         self.game.window.blit(self.game.display, (0, 0))
@@ -58,15 +58,42 @@ class MainMenu(Menu):
                 bottomright=(560, 600))
             self.game.display.blit(self.button_exit, self.b2)
 
-            #self.draw_cursor()
+            self.draw_cursor()
             self.blit_screen()
 
 
     def move_cursor(self):
-        pass
+        if self.game.DOWN_KEY:
+            if self.state == 'Start':
+                self.cursor_rect.midtop = (self.levelsx + self.offset, self.levelsy)
+                self.state = 'Levels'
+            elif self.state == 'Levels':
+                self.cursor_rect.midtop = (self.exitx + self.offset, self.exity)
+                self.state = 'Exit'
+            elif self.state == 'Exit':
+                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+                self.state = 'Start'
+        elif self.game.UP_KEY:
+            if self.state == 'Start':
+                self.cursor_rect.midtop = (self.exitx + self.offset, self.exity)
+                self.state = 'Exit'
+            elif self.state == 'Levels':
+                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+                self.state = 'Start'
+            elif self.state == 'Exit':
+                self.cursor_rect.midtop = (self.levelsx + self.offset, self.levelsy)
+                self.state = 'Levels'
 
     def check_input(self):
-        pass
+        self.move_cursor()
+        if self.game.START_KEY:
+            if self.state == 'Start':
+                self.game.playing = True
+            elif self.state == 'Levels':
+                self.game.curr_menu = self.game.levels
+            elif self.state == 'Exit':
+                self.game.curr_menu = self.game.exit
+            self.run_display = False
 
 class LevelsMenu(Menu):
     def __init__(self, game):
