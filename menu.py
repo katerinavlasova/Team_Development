@@ -28,12 +28,12 @@ class MainMenu(Menu):
 
     def display_menu(self):
         self.run_display = True
+        pygame.mixer.music.load('wet-fingers-turn-me-on.mp3')
+        pygame.mixer.music.set_volume(0.4)  # 1=100%
+        pygame.mixer.music.play(-1)
         while self.run_display:
             self.game.check_events()
             self.check_input()
-            #pygame.mixer.music.load('wet-fingers-turn-me-on.mp3')
-            #pygame.mixer.music.set_volume(0.4) #1=100%
-            #pygame.mixer.music.play(-1)
 
             self.game.display = pygame.image.load('img/screen1/backgroung_screen1_1.jpg')
 
