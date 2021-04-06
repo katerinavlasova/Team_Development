@@ -4,6 +4,7 @@ from menu import *
 
 class Game():
     def __init__(self):
+        pygame.mixer.pre_init(44100, -16, 2)
         pygame.init()
         self.running, self.playing = True, False # цикл
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
