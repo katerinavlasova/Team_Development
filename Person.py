@@ -33,7 +33,7 @@ game_lvl = 1
 # Класс Person
 class Person:
     
-    print ("Я родился!")
+    #print ("Я родился!")
 
     gender = random.choice(gender_choise)
     
@@ -47,34 +47,60 @@ class Person:
         name = random.choice(male_names)
 
     #needs
-    dance  = random.random() / game_lvl
-    thirst = random.random() / game_lvl
-    hunger = random.random() / game_lvl
-    social = random.random() / game_lvl        
+    dance  = random.randint(0,100) // game_lvl
+    thirst = random.randint(0,100) // game_lvl
+    hunger = random.randint(0,100) // game_lvl
+    social = random.randint(0,100) // game_lvl        
 
-    
+        
     # создаем методы класса
     
     def dance(self):
-        self.dance += 0.5 / game_lvl
-        if self.dance > 1:
-            self.dance = 1
+        self.dance += 50 // game_lvl
+        if self.dance > 100:
+            self.dance = 100
         #show_dance(self.dance)
         
     def drink(self):
-        self.thirst += 0.5 / game_lvl
-        if self.thirst > 1:
-            self.thirst = 1
+        self.thirst += 50 // game_lvl
+        if self.thirst > 100:
+            self.thirst = 100
         #show_thirst(self.thirst)
  
     def eat(self):
-        self.hunger += 0.5 / game_lvl
-        if self.hunger > 1:
-            self.hunger = 1
+        self.hunger += 50 // game_lvl
+        if self.hunger > 100:
+            self.hunger = 100
         #show_hunger(self.hunger)
 
     def communicate(self):
-        self.social += 0.5 / game_lvl
-        if self.sotial > 1:
-            self.sotial = 1
+        self.social += 50 // game_lvl
+        if self.sotial > 100:
+            self.sotial = 100
         #show_social(self.social)
+
+    def set_dance(self, val):
+	self.dance = val
+        if self.dance > 100:
+            self.dance = 100
+
+    def set_thirst(self, val):
+        self.thirst = val
+
+    def set_hunger(self, val):
+        self.hunger = val
+
+    def set_social(self, val):
+        self.social = val
+
+    def get_dance(self):
+        return(self.dance)
+
+    def get_thirst(self):
+        return(self.thirst)
+
+    def get_hunger(self):
+        return(self.hunger)
+
+    def get_social(self):
+        return(self.social)
