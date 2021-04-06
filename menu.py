@@ -28,7 +28,7 @@ class MainMenu(Menu):
 
     def display_menu(self):
         self.run_display = True
-        pygame.mixer.music.load('wet-fingers-turn-me-on.mp3')
+        pygame.mixer.music.load('music/wet-fingers-turn-me-on.mp3')
         pygame.mixer.music.set_volume(0.4)  # 1=100%
         pygame.mixer.music.play(-1)
         while self.run_display:
