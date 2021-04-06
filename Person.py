@@ -80,9 +80,7 @@ class Person:
         #show_social(self.social)
 
     def set_dance(self, val):
-	self.dance = val
-        if self.dance > 100:
-            self.dance = 100
+        self.dance = val
 
     def set_thirst(self, val):
         self.thirst = val
