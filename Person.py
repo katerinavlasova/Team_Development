@@ -10,20 +10,18 @@ import random
 ##    name -   Имя. Строка
 ##
 ##    dance  - Танцы
-##             Случайное число [0,1]
+##             Случайное число [0,100]
 ##    thirst - Жажда
-##             Случайное число [0,1]
+##             Случайное число [0,100]
 ##    hunger - Голод
-##             Случайное число [0,1]
+##             Случайное число [0,100]
 ##    social - Общение
-##             Случайное число [0,1]
-
+##             Случайное число [0,100]
 
 ##  Методы класса:
-##    dance - Танцевать
-##    drink - Попить
-##    eat   - Поесть
-##    communicate - Общаться
+## dec_* - уменьшение уровня потребности (в течение времени)
+## set_* - установка уровня потребности из внешних классов (мест пополнения)
+## get_* - передача значения
 
 gender_choise = ['m', 'f']
 male_names = ['Dick']
@@ -44,7 +42,7 @@ class Person:
     if gender == 'f':
         avatar = 'img/screen4/persons/girl/little.png'
         sprite = 'img/screen4/persons/girl/girl.png'
-        name = random.choice(male_names)
+        name = random.choice(female_names)
 
     #needs
     dance  = random.randint(0,100) // game_lvl
@@ -55,26 +53,26 @@ class Person:
         
     # создаем методы класса
     
-    def dance(self):
-        self.dance += 50 // game_lvl
+    def dec_dance(self):
+        self.dance -= game_lvl
         if self.dance > 100:
             self.dance = 100
         #show_dance(self.dance)
         
-    def drink(self):
-        self.thirst += 50 // game_lvl
+    def dec_thirst(self):
+        self.thirst -= game_lvl
         if self.thirst > 100:
             self.thirst = 100
         #show_thirst(self.thirst)
  
-    def eat(self):
-        self.hunger += 50 // game_lvl
+    def dec_hunger(self):
+        self.hunger -= game_lvl
         if self.hunger > 100:
             self.hunger = 100
         #show_hunger(self.hunger)
 
-    def communicate(self):
-        self.social += 50 // game_lvl
+    def dec_social(self):
+        self.social -= game_lvl
         if self.sotial > 100:
             self.sotial = 100
         #show_social(self.social)
