@@ -92,7 +92,7 @@ class MainMenu(Menu):
             elif self.state == 'Levels':
                 self.game.curr_menu = self.game.levels
             elif self.state == 'Exit':
-                self.game.curr_menu = self.game.exit
+                self.game.curr_menu = ExitMenu.display_menu(self)#self.game.exit
             self.run_display = False
 
 class LevelsMenu(Menu):
@@ -137,3 +137,4 @@ class ExitMenu(Menu):
     def display_menu(self):
         pygame.quit()
         sys.exit()
+
