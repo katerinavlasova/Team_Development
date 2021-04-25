@@ -1,3 +1,4 @@
+import pygame
 import random
 
 ##  Атрибуты класса:
@@ -24,31 +25,38 @@ import random
 ## get_* - передача значения
 
 gender_choise = ['m', 'f']
+y_coord_choise = [500, 245]
 male_names = ['Dick']
 female_names = ['Jessy']
 game_lvl = 1
 
 # Класс Person
-class Person:
+class Person(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        gender = random.choice(gender_choise)
     
-    #print ("Я родился!")
+        if gender == 'm':
+            self.avatar = pygame.image.load('img/screen4/persons/boy/little.png').convert_alpha()
+            self.image = pygame.image.load('img/screen4/persons/boy/boy.png').convert_alpha()
+            self.name = random.choice(male_names)
+        if gender == 'f':
+            self.avatar = pygame.image.load('img/screen4/persons/girl/little.png').convert_alpha()
+            self.image = pygame.image.load('img/screen4/persons/girl/girl.png').convert_alpha()
+            self.name = random.choice(female_names)
 
-    gender = random.choice(gender_choise)
-    
-    if gender == 'm':
-        avatar = 'img/screen4/persons/boy/little.png'
-        sprite = 'img/screen4/persons/boy/boy.png'
-        name = random.choice(male_names)
-    if gender == 'f':
-        avatar = 'img/screen4/persons/girl/little.png'
-        sprite = 'img/screen4/persons/girl/girl.png'
-        name = random.choice(female_names)
+        #needs
+        self.dance  = random.randint(0,100) // game_lvl
+        self.thirst = random.randint(0,100) // game_lvl
+        self.hunger = random.randint(0,100) // game_lvl
+        self.social = random.randint(0,100) // game_lvl 
 
-    #needs
-    dance  = random.randint(0,100) // game_lvl
-    thirst = random.randint(0,100) // game_lvl
-    hunger = random.randint(0,100) // game_lvl
-    social = random.randint(0,100) // game_lvl        
+        self.rect = self.image.get_rect()
+        y_coord = random.choice(y_coord_choise)
+        x_coord = random.uniform(530, 920)
+        self.rect.center = (x_coord, y_coord)
+        self.image.set_colorkey((255, 255, 255))
+    #print ("Я родился!")       
 
         
     # создаем методы класса
