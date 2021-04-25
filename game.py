@@ -4,7 +4,7 @@ from DanceFloor_Class import *
 from DrinksTable_Class import *
 from FoodTable_Class import *
 from menu import *
-
+from Timer_Class import *
 
 class Game():
     def __init__(self):
@@ -19,17 +19,24 @@ class Game():
         self.BLACK, self.WHITE = (255, 192, 200), (255, 255, 255)
         self.main_menu = MainMenu(self)
         self.levels = LevelsMenu(self)
+        self.lvl_length = 60 # time, seconds
         self.exit = ExitMenu(self)
         self.curr_menu = self.main_menu
         self.icon = pygame.image.load('img/screen4/persons/boy/little.png')
         pygame.display.set_icon(self.icon)
 
     def game_loop(self):
+        timer = Timer()
+        game_params = pygame.sprite.Group()
+        game_params.add(timer)
         while self.playing:
             self.check_events()
             if self.START_KEY:
                 self.playing= False
-            self.display = pygame.image.load('img/screen4/house/home_bg_1.png')
+            self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
+            #timer            
+            if timer.time_is_over(self):
+                break
             resources = pygame.sprite.Group()
             divan = Sofa()
             dancefloor = Dancing()
@@ -39,13 +46,12 @@ class Game():
             resources.add(dancefloor)
             resources.add(voda)
             resources.add(food)
-            #self.display.fill(self.BLACK)
-            #self.draw_text('тут что-то будет....', 100, self.DISPLAY_W/2, self.DISPLAY_H/2)
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
             self.window.blit(voda.image, voda.rect)
             self.window.blit(dancefloor.image, dancefloor.rect)
             self.window.blit(food.image, food.rect)
+            self.window.blit(timer.image, timer.rect)
             pygame.display.update() #обновляем дисплей
             self.reset_keys()
 
