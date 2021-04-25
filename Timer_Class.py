@@ -15,6 +15,6 @@ class Timer(pygame.sprite.Sprite):
             return True
         else:
             self.img_name = 'img/screen4/timer/' + str(game.lvl_length - self.time_del) + '.png'
-            print(self.img_name)
+            #print(self.img_name)
             self.image = pygame.image.load(self.img_name)
             return False
