@@ -25,7 +25,7 @@ import random
 ## get_* - передача значения
 
 gender_choise = ['m', 'f']
-y_coord_choise = [500, 265]
+y_coord_choise = [500, 245]
 male_names = ['Dick']
 female_names = ['Jessy']
 game_lvl = 1
