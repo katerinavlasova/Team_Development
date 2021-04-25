@@ -1,10 +1,16 @@
+import pygame
 from Person import *
 
 INC_DRINKS = 20
 
-class Drinks:
+class Drinks(pygame.sprite.Sprite):
     inc = INC_DRINKS
-
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('img/screen4/places/drink_refill.png').convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.center = (260, 500)
+        self.image.set_colorkey((255, 255, 255))
     def increase(self, person):
         curr = person.get_thirst()
         person.set_thirst(self.inc + curr)
