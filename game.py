@@ -1,6 +1,7 @@
 import pygame
 from Sofa_Class import *
 from DanceFloor_Class import *
+from DrinksTable_Class import *
 from menu import *
 
 
@@ -31,12 +32,15 @@ class Game():
             resources = pygame.sprite.Group()
             divan = Sofa()
             dancefloor = Dancing()
+            voda = Drinks()
             resources.add(divan)
             resources.add(dancefloor)
+            resources.add(voda)
             #self.display.fill(self.BLACK)
             #self.draw_text('тут что-то будет....', 100, self.DISPLAY_W/2, self.DISPLAY_H/2)
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
+            self.window.blit(voda.image, voda.rect)
             self.window.blit(dancefloor.image, dancefloor.rect)
             pygame.display.update() #обновляем дисплей
             self.reset_keys()
