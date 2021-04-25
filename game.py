@@ -1,4 +1,5 @@
 import pygame
+from Sofa_Class import *
 from menu import *
 
 
@@ -26,9 +27,13 @@ class Game():
             if self.START_KEY:
                 self.playing= False
             self.display = pygame.image.load('img/screen4/house/home_bg_1.png')
+            resources = pygame.sprite.Group()
+            divan = Sofa()
+            resources.add(divan)
             #self.display.fill(self.BLACK)
             #self.draw_text('тут что-то будет....', 100, self.DISPLAY_W/2, self.DISPLAY_H/2)
             self.window.blit(self.display, (0,0))
+            self.window.blit(divan.image, divan.rect)
             pygame.display.update() #обновляем дисплей
             self.reset_keys()
 
