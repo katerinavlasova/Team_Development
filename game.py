@@ -3,8 +3,11 @@ from Sofa_Class import *
 from DanceFloor_Class import *
 from DrinksTable_Class import *
 from FoodTable_Class import *
+from Person import *
 from menu import *
 from Timer_Class import *
+
+PERS_COUNT = 3
 
 class Game():
     def __init__(self):
@@ -29,6 +32,11 @@ class Game():
         timer = Timer()
         game_params = pygame.sprite.Group()
         game_params.add(timer)
+        person_group = [0] * PERS_COUNT
+        persons = pygame.sprite.Group()
+        for i in range(PERS_COUNT):
+            person_group[i] = Person()
+            persons.add(person_group[i])
         while self.playing:
             self.check_events()
             if self.START_KEY:
@@ -42,16 +50,20 @@ class Game():
             dancefloor = Dancing()
             voda = Drinks()
             food = Food()
+            
             resources.add(divan)
             resources.add(dancefloor)
             resources.add(voda)
             resources.add(food)
+            
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
             self.window.blit(voda.image, voda.rect)
             self.window.blit(dancefloor.image, dancefloor.rect)
             self.window.blit(food.image, food.rect)
             self.window.blit(timer.image, timer.rect)
+            for i in range(PERS_COUNT):
+                self.window.blit(person_group[i].image, person_group[i].rect)
             pygame.display.update() #обновляем дисплей
             self.reset_keys()
 
