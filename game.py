@@ -48,11 +48,19 @@ class Game():
         resources.add(food)
         while self.playing:
             self.check_events()
+            if self.BACK_KEY:  # START_KEY:
+                self.playing = False
             if self.START_KEY:
-                self.playing= False
+                self.start = time.time()
+                print('вы на паузе')
+                self.pause()
+                self.end = time.time()
+                timer.time_beg += (self.end-self.start)
+                print('вернулись')
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
+                print('pipaos')
                 break          
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
@@ -62,7 +70,7 @@ class Game():
             self.window.blit(timer.image, timer.rect)
             for i in range(PERS_COUNT):
                 self.window.blit(person_group[i].image, person_group[i].rect)
-            pygame.display.update() #обновляем дисплей
+            #pygame.display.update() #обновляем дисплей
 
             hit_list = pygame.sprite.spritecollide(voda, persons, False)
             if (hit_list):
@@ -95,8 +103,28 @@ class Game():
             for pers in persons:
                 if pers not in hit_list:
                     pers.dec_hunger()
-                    
+            pygame.display.update()  # обновляем дисплей
             self.reset_keys()
+
+    def pause(self):
+        self.paused = True
+        while self.paused:
+            self.pause_image = pygame.image.load('img/screen6/text.png')
+            self.rect = self.pause_image.get_rect()
+            self.rect.center = (640, 360)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:  # конец игры
+                    self.running, self.playing = False, False
+                    self.curr_menu.run_display = False
+                if event.type == pygame.KEYDOWN:
+                    print("нажали на кпноку")
+                    if event.key == pygame.K_RETURN:
+                        print("валим с паузы")
+                        self.paused = False
+            self.check_events()
+            self.window.blit(self.pause_image, self.rect)
+            pygame.display.update()
 
     def check_events(self):
         for event in pygame.event.get():
