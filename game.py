@@ -63,12 +63,30 @@ class Game():
             for i in range(PERS_COUNT):
                 self.window.blit(person_group[i].image, person_group[i].rect)
             pygame.display.update() #обновляем дисплей
+
+            hit_list = pygame.sprite.spritecollide(voda, persons, False)
+            if (hit_list):
+                for pers in hit_list:
+                    voda.increase(pers)
+       
             hit_list = pygame.sprite.spritecollide(divan, persons, False)
             if (hit_list):
-                print("yes")
+                print("yes divan")
                 for pers in hit_list:
                     divan.increase(pers)
                     print(pers.social)
+                    
+            hit_list = pygame.sprite.spritecollide(dancefloor, persons, False)
+            if (hit_list):
+                print("yes dancefloor")
+                for pers in hit_list:
+                    dancefloor.increase(pers)
+
+            hit_list = pygame.sprite.spritecollide(food, persons, False)
+            if (hit_list):
+                print("yes food")
+                for pers in hit_list:
+                    food.increase(pers)
             self.reset_keys()
 
     def check_events(self):
