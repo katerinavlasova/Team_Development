@@ -37,6 +37,15 @@ class Game():
         for i in range(PERS_COUNT):
             person_group[i] = Person()
             persons.add(person_group[i])
+        resources = pygame.sprite.Group()
+        divan = Sofa()
+        dancefloor = Dancing()
+        voda = Drinks()
+        food = Food()
+        resources.add(divan)
+        resources.add(dancefloor)
+        resources.add(voda)
+        resources.add(food)
         while self.playing:
             self.check_events()
             if self.START_KEY:
@@ -44,18 +53,7 @@ class Game():
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
-                break
-            resources = pygame.sprite.Group()
-            divan = Sofa()
-            dancefloor = Dancing()
-            voda = Drinks()
-            food = Food()
-            
-            resources.add(divan)
-            resources.add(dancefloor)
-            resources.add(voda)
-            resources.add(food)
-            
+                break          
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
             self.window.blit(voda.image, voda.rect)
@@ -65,6 +63,12 @@ class Game():
             for i in range(PERS_COUNT):
                 self.window.blit(person_group[i].image, person_group[i].rect)
             pygame.display.update() #обновляем дисплей
+            hit_list = pygame.sprite.spritecollide(divan, persons, False)
+            if (hit_list):
+                print("yes")
+                for pers in hit_list:
+                    divan.increase(pers)
+                    print(pers.social)
             self.reset_keys()
 
     def check_events(self):
