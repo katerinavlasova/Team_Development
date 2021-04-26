@@ -68,25 +68,34 @@ class Game():
             if (hit_list):
                 for pers in hit_list:
                     voda.increase(pers)
-       
+            for pers in persons:
+                if pers not in hit_list:
+                    pers.dec_thirst()
+
             hit_list = pygame.sprite.spritecollide(divan, persons, False)
             if (hit_list):
-                print("yes divan")
                 for pers in hit_list:
                     divan.increase(pers)
-                    print(pers.social)
+            for pers in persons:
+                if pers not in hit_list:
+                    pers.dec_social()
                     
             hit_list = pygame.sprite.spritecollide(dancefloor, persons, False)
             if (hit_list):
-                print("yes dancefloor")
                 for pers in hit_list:
                     dancefloor.increase(pers)
+            for pers in persons:
+                if pers not in hit_list:
+                    pers.dec_dance()
 
             hit_list = pygame.sprite.spritecollide(food, persons, False)
             if (hit_list):
-                print("yes food")
                 for pers in hit_list:
                     food.increase(pers)
+            for pers in persons:
+                if pers not in hit_list:
+                    pers.dec_hunger()
+                    
             self.reset_keys()
 
     def check_events(self):
