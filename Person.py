@@ -81,8 +81,8 @@ class Person(pygame.sprite.Sprite):
 
     def dec_social(self):
         self.social -= game_lvl
-        if self.sotial > 100:
-            self.sotial = 100
+        if self.social > 100:
+            self.social = 100
         #show_social(self.social)
 
     def set_dance(self, val):
