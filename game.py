@@ -61,19 +61,27 @@ class Game():
                     if event.key == pygame.K_BACKSPACE:
                         self.playing = False
                     if event.key == pygame.K_RETURN:
-                        print("пауза")
                         self.start = time.time()
-                        print('вы на паузе')
                         self.pause()
                         self.end = time.time()
                         timer.time_beg += (self.end-self.start)
-                        print('вернулись')
                 if (moving == True):
-                    print("coord")
                     mouse_position = pygame.mouse.get_pos()
                     moving_pers.set_coordinats(mouse_position[0], mouse_position[1])
                 if (event.type == pygame.MOUSEBUTTONUP and event.button == 1):
                     moving = False
+
+                    # персонаж не должен висеть в воздухе/быть за пределами экрана
+                    if (moving_pers.rect.x < 95):
+                        moving_pers.rect.x = 125
+                    elif (moving_pers.rect.x > 1130):
+                        moving_pers.rect.x = 1100
+                    if (moving_pers.rect.y < 408 and moving_pers.rect.y >150):
+                        moving_pers.rect.y = 408
+                    elif (moving_pers.rect.y > 408):
+                        moving_pers.rect.y = 408
+                    elif (moving_pers.rect.y < 150):
+                        moving_pers.rect.y = 150
             self.check_events()
 ##            if self.BACK_KEY:  # START_KEY:
 ##                self.playing = False
@@ -110,7 +118,6 @@ class Game():
             if (hit_list):
                 for pers in hit_list:
                     divan.increase(pers)
-                    print("na divane")
             for pers in persons:
                 if pers not in hit_list:
                     pers.dec_social()
