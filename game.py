@@ -46,17 +46,52 @@ class Game():
         resources.add(dancefloor)
         resources.add(voda)
         resources.add(food)
+        moving = False
         while self.playing:
+            for event in pygame.event.get():
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
+                    print("мышь")
+                    for pers in persons:
+                        if pers.rect.collidepoint(event.pos):
+                            print("НАЖАЛИ НА ЧЕЛА")
+                            moving = True
+                            moving_pers = pers # заполмнили, какого персонажа двигаем
+                            break
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.playing = False
+                    if event.key == pygame.K_RETURN:
+                        self.start = time.time()
+                        self.pause()
+                        self.end = time.time()
+                        timer.time_beg += (self.end-self.start)
+                if (moving == True):
+                    mouse_position = pygame.mouse.get_pos()
+                    moving_pers.set_coordinats(mouse_position[0], mouse_position[1])
+                if (event.type == pygame.MOUSEBUTTONUP and event.button == 1):
+                    moving = False
+
+                    # персонаж не должен висеть в воздухе/быть за пределами экрана
+                    if (moving_pers.rect.x < 95):
+                        moving_pers.rect.x = 125
+                    elif (moving_pers.rect.x > 1130):
+                        moving_pers.rect.x = 1100
+                    if (moving_pers.rect.y < 408 and moving_pers.rect.y >150):
+                        moving_pers.rect.y = 408
+                    elif (moving_pers.rect.y > 408):
+                        moving_pers.rect.y = 408
+                    elif (moving_pers.rect.y < 150):
+                        moving_pers.rect.y = 150
             self.check_events()
-            if self.BACK_KEY:  # START_KEY:
-                self.playing = False
-            if self.START_KEY:
-                self.start = time.time()
-                print('вы на паузе')
-                self.pause()
-                self.end = time.time()
-                timer.time_beg += (self.end-self.start)
-                print('вернулись')
+##            if self.BACK_KEY:  # START_KEY:
+##                self.playing = False
+##            if self.START_KEY:
+##                self.start = time.time()
+##                print('вы на паузе')
+##                self.pause()
+##                self.end = time.time()
+##                timer.time_beg += (self.end-self.start)
+##                print('вернулись')
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
