@@ -53,7 +53,7 @@ class Person(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         y_coord = random.choice(y_coord_choise)
-        x_coord = random.uniform(530, 920)
+        x_coord = random.uniform(250, 920)
         self.rect.center = (x_coord, y_coord)
         self.image.set_colorkey((255, 255, 255))
     #print ("Я родился!")       
@@ -86,16 +86,28 @@ class Person(pygame.sprite.Sprite):
         #show_social(self.social)
 
     def set_dance(self, val):
-        self.dance = val
+        if (val > 100):
+            self.dance = 100
+        else:
+            self.dance = val
 
     def set_thirst(self, val):
-        self.thirst = val
+        if (val > 100):
+            self.thirst = 100
+        else:
+            self.thirst = val
 
     def set_hunger(self, val):
-        self.hunger = val
+        if (val > 100):
+            self.hunger = 100
+        else:
+            self.hunger = val
 
     def set_social(self, val):
-        self.social = val
+        if (val > 100):
+            self.social = 100
+        else:
+            self.social = val
 
     def get_dance(self):
         return(self.dance)

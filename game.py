@@ -60,7 +60,6 @@ class Game():
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
-                print('pipaos')
                 break          
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
