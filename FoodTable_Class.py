@@ -9,7 +9,7 @@ class Food(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('img/screen4/places/food_refill.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.center = (530, 265)
+        self.rect.center = (530, 285)
         self.image.set_colorkey((255, 255, 255))
     def increase(self, person):
         curr = person.get_hunger()

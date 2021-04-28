@@ -9,7 +9,7 @@ class Sofa(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('img/screen4/places/communion_refill.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.center = (530, 500)
+        self.rect.center = (537, 520)
         self.image.set_colorkey((255, 255, 255))
     def increase(self, person):
         curr = person.get_social()

@@ -9,7 +9,7 @@ class Drinks(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('img/screen4/places/drink_refill.png').convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.center = (260, 500)
+        self.rect.center = (260, 520)
         self.image.set_colorkey((255, 255, 255))
     def increase(self, person):
         curr = person.get_thirst()
