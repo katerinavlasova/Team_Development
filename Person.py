@@ -120,3 +120,9 @@ class Person(pygame.sprite.Sprite):
 
     def get_social(self):
         return(self.social)
+    def set_coordinats(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+
+
+    

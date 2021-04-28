@@ -46,17 +46,44 @@ class Game():
         resources.add(dancefloor)
         resources.add(voda)
         resources.add(food)
+        moving = False
         while self.playing:
+            for event in pygame.event.get():
+                if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
+                    print("мышь")
+                    for pers in persons:
+                        if pers.rect.collidepoint(event.pos):
+                            print("НАЖАЛИ НА ЧЕЛА")
+                            moving = True
+                            moving_pers = pers # заполмнили, какого персонажа двигаем
+                            break
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.playing = False
+                    if event.key == pygame.K_RETURN:
+                        print("пауза")
+                        self.start = time.time()
+                        print('вы на паузе')
+                        self.pause()
+                        self.end = time.time()
+                        timer.time_beg += (self.end-self.start)
+                        print('вернулись')
+                if (moving == True):
+                    print("coord")
+                    mouse_position = pygame.mouse.get_pos()
+                    moving_pers.set_coordinats(mouse_position[0], mouse_position[1])
+                if (event.type == pygame.MOUSEBUTTONUP and event.button == 1):
+                    moving = False
             self.check_events()
-            if self.BACK_KEY:  # START_KEY:
-                self.playing = False
-            if self.START_KEY:
-                self.start = time.time()
-                print('вы на паузе')
-                self.pause()
-                self.end = time.time()
-                timer.time_beg += (self.end-self.start)
-                print('вернулись')
+##            if self.BACK_KEY:  # START_KEY:
+##                self.playing = False
+##            if self.START_KEY:
+##                self.start = time.time()
+##                print('вы на паузе')
+##                self.pause()
+##                self.end = time.time()
+##                timer.time_beg += (self.end-self.start)
+##                print('вернулись')
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
@@ -83,6 +110,7 @@ class Game():
             if (hit_list):
                 for pers in hit_list:
                     divan.increase(pers)
+                    print("na divane")
             for pers in persons:
                 if pers not in hit_list:
                     pers.dec_social()
