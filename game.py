@@ -47,6 +47,7 @@ class Game():
         resources.add(voda)
         resources.add(food)
         moving = False
+        moving_pers = False
         while self.playing:
             for event in pygame.event.get():
                 if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
@@ -82,6 +83,7 @@ class Game():
                         moving_pers.rect.y = 408
                     elif (moving_pers.rect.y < 150):
                         moving_pers.rect.y = 150
+
             self.check_events()
 ##            if self.BACK_KEY:  # START_KEY:
 ##                self.playing = False
@@ -95,13 +97,17 @@ class Game():
             self.display = pygame.image.load('img/screen4/house/home_bg_white_frame.png')
             #timer            
             if timer.time_is_over(self):
-                break          
+                break
+
             self.window.blit(self.display, (0,0))
             self.window.blit(divan.image, divan.rect)
             self.window.blit(voda.image, voda.rect)
             self.window.blit(dancefloor.image, dancefloor.rect)
             self.window.blit(food.image, food.rect)
             self.window.blit(timer.image, timer.rect)
+            if (moving_pers):
+                moving_pers.show_needs(self)
+            
             for i in range(PERS_COUNT):
                 self.window.blit(person_group[i].image, person_group[i].rect)
             #pygame.display.update() #обновляем дисплей
