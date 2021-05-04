@@ -1,6 +1,9 @@
 import pygame
 import random
 
+dec_const = 0.03
+inc_const = 0.15
+
 ##  Атрибуты класса:
 ##    gender - Пол.
 ##             Cимвол 'm' или 'f'
@@ -62,50 +65,66 @@ class Person(pygame.sprite.Sprite):
     # создаем методы класса
     
     def dec_dance(self):
-        self.dance -= game_lvl
+        self.dance -= dec_const
         if self.dance > 100:
             self.dance = 100
+        elif self.dance < 0:
+            self.dance = 0
         #show_dance(self.dance)
         
     def dec_thirst(self):
-        self.thirst -= game_lvl
+        self.thirst -= dec_const
         if self.thirst > 100:
             self.thirst = 100
+        elif self.thirst < 0:
+            self.thirst = 0
         #show_thirst(self.thirst)
  
     def dec_hunger(self):
-        self.hunger -= game_lvl
+        self.hunger -= dec_const
         if self.hunger > 100:
             self.hunger = 100
+        elif self.hunger < 0:
+            self.hunger = 0
         #show_hunger(self.hunger)
 
     def dec_social(self):
-        self.social -= game_lvl
+        self.social -= dec_const
         if self.social > 100:
             self.social = 100
+        elif self.social < 0:
+            self.social = 0        
         #show_social(self.social)
 
     def set_dance(self, val):
         if (val > 100):
             self.dance = 100
+        elif (val < 0):
+            self.dance = 0
         else:
             self.dance = val
 
     def set_thirst(self, val):
         if (val > 100):
             self.thirst = 100
+        elif (val < 0):
+            self.thirst = 0
         else:
             self.thirst = val
 
     def set_hunger(self, val):
         if (val > 100):
             self.hunger = 100
+        elif (val < 0):
+            self.hunger = 0
         else:
             self.hunger = val
 
     def set_social(self, val):
         if (val > 100):
             self.social = 100
+        elif (val < 0):
+            self.social = 0
         else:
             self.social = val
 
@@ -124,5 +143,48 @@ class Person(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    def show_needs(self, screen):
+        a = self.thirst
+        b = self.dance
+        c = self.hunger
+        d = self.social
 
-    
+        a_x, a_y = 282, 651
+        b_x, b_y = 282, 687
+        c_x, c_y = 752, 651
+        d_x, d_y = 752, 687
+
+        a_coord = (a_x, a_y)
+        b_coord = (b_x, b_y)
+        c_coord = (c_x, c_y)
+        d_coord = (d_x, d_y)
+
+        a_font_x = a_x + int(a / 100 * 373)
+        b_font_x = b_x + int(b / 100 * 373)
+        c_font_x = c_x + int(c / 100 * 373)
+        d_font_x = d_x + int(d / 100 * 373)
+
+        a_font_coord = (a_font_x, a_y)
+        b_font_coord = (b_font_x, b_y)
+        c_font_coord = (c_font_x, c_y)
+        d_font_coord = (d_font_x, d_y)
+
+        frame_coord = (0, 644)
+
+        line_img = pygame.image.load('img/screen4/bg/line.png').convert_alpha()
+        font_img = pygame.image.load('img/screen4/bg/font.png').convert_alpha()
+        frame_img = pygame.image.load('img/screen4/bg/frame.png').convert_alpha()
+        ffont_img = pygame.image.load('img/screen4/bg/frame_font.png').convert_alpha()
+
+                
+        screen.window.blit(ffont_img, frame_coord)       
+        screen.window.blit(line_img, a_coord)
+        screen.window.blit(font_img, a_font_coord)
+        screen.window.blit(line_img, b_coord)
+        screen.window.blit(font_img, b_font_coord)
+        screen.window.blit(line_img, c_coord)
+        screen.window.blit(font_img, c_font_coord)
+        screen.window.blit(line_img, d_coord)
+        screen.window.blit(font_img, d_font_coord)
+        screen.window.blit(frame_img, frame_coord)
+        screen.window.blit(self.avatar, (144, 656))

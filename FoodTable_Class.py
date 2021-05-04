@@ -1,7 +1,7 @@
 import pygame
 from Person import *
 
-INC_FOOD = 20
+INC_FOOD = inc_const
 
 class Food(pygame.sprite.Sprite):
     inc = INC_FOOD

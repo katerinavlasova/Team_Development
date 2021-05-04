@@ -1,7 +1,7 @@
 import pygame
 from Person import *
 
-INC_SOCIAL = 20
+INC_SOCIAL = inc_const
 
 class Sofa(pygame.sprite.Sprite):
     inc = INC_SOCIAL
