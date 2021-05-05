@@ -23,7 +23,7 @@ class Game():
         self.BLACK, self.WHITE = (255, 192, 200), (255, 255, 255)
         self.main_menu = MainMenu(self)
         self.levels = LevelsMenu(self)
-        self.lvl_length = 10  # time, seconds
+        self.lvl_length = 60  # time, seconds
         self.exit = ExitMenu(self)
         self.curr_menu = self.main_menu
         self.icon = pygame.image.load('img/screen4/persons/boy/little.png')
