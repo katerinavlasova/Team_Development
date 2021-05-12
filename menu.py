@@ -7,10 +7,11 @@ class Menu():
         self.mid_w, self.mid_h = self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2
         self.run_display = True
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
-        self.offset = - 300
+        self.offset = - 143
 
     def draw_cursor(self):
-        self.game.draw_text('~', 150, self.cursor_rect.x - 50, self.cursor_rect.y)
+        #self.game.draw_text('~', 150, (self.cursor_rect.x - 50, self.cursor_rect.y))
+        self.game.window.blit(self.game.cursor, (self.cursor_rect.x + 20, self.cursor_rect.y))
 
     def blit_screen(self):
         self.game.window.blit(self.game.display, (0, 0))
@@ -21,22 +22,32 @@ class MainMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
         self.state = "Start"
-        self.startx, self.starty = self.mid_w, self.mid_h -200
-        self.levelsx, self.levelsy = self.mid_w, self.mid_h
-        self.exitx, self.exity = self.mid_w, self.mid_h + 200
+        self.startx, self.starty =   310, 165
+        self.levelsx, self.levelsy = 310, 308
+        self.exitx, self.exity =     310, 461
         self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+
+    def show_font_gif(self):
+        self.i += 1
+        str_i = str(self.i)
+        img_name = 'img/screen1/start_bg/' + str_i + '.png'
+        self.game.display = pygame.image.load(img_name)
+        if self.i == 5:
+            self.i = 0
+
 
     def display_menu(self):
         self.run_display = True
-        pygame.mixer.music.load('music/wet-fingers-turn-me-on.mp3')
-        pygame.mixer.music.set_volume(0.4)  # 1=100%
-        pygame.mixer.music.play(-1)
+        self.i = 0
+        #pygame.mixer.music.load('music/wet-fingers-turn-me-on.mp3')
+        #pygame.mixer.music.set_volume(0.4)  # 1=100%
+        #pygame.mixer.music.play(-1)
         while self.run_display:
             self.game.check_events()
             self.check_input()
 
-            self.game.display = pygame.image.load('img/screen1/backgroung_screen1_1.jpg')
-
+            self.show_font_gif()
+            '''
             self.game.draw_text("Start Game", 80, self.startx+50, self.starty)
             self.button_play = pygame.image.load('img/screen1/button_play.png')
             self.button_play = pygame.transform.scale(self.button_play, (100, 100))
@@ -57,9 +68,18 @@ class MainMenu(Menu):
             self.b2 = self.button_exit.get_rect(
                 bottomright=(560, 600))
             self.game.display.blit(self.button_exit, self.b2)
-
+            '''
+            self.game.cursor = pygame.image.load('img/screen6/but_play.png')
+            self.game.cursor = pygame.transform.scale(self.game.cursor, (50, 50))
+            self.game.menu = pygame.image.load('img/screen1/start2.png')
+            
+            
+            self.game.window.blit(self.game.display, (0, 0))
+            self.game.window.blit(self.game.menu, (0, 0))
             self.draw_cursor()
-            self.blit_screen()
+            self.game.reset_keys()
+            
+            pygame.display.update()
 
 
     def move_cursor(self):
