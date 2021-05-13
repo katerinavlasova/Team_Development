@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7.10
+#!/usr/bin/python
 import unittest
 from Person import *
 from Sofa_Class import *
