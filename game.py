@@ -89,10 +89,10 @@ class Game():
         while self.playing:
             for event in pygame.event.get():
                 if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
-                    print("мышь")
+                    #print("мышь")
                     for pers in persons:
                         if pers.rect.collidepoint(event.pos):
-                            print("НАЖАЛИ НА ЧЕЛА")
+                            #print("НАЖАЛИ НА ЧЕЛА")
                             moving = True
                             moving_pers = pers  # заполмнили, какого персонажа двигаем
                             break
@@ -137,7 +137,7 @@ class Game():
                     all_hunger += pers.get_hunger()
                     all_thirst += pers.get_thirst()
                 result_needs = (all_hunger + all_dance + all_social + all_thirst) / (4*count_persons)
-                print(result_needs)
+                #print(result_needs)
                 if result_needs > 50: # выигрыш
                     self.end_image = pygame.image.load('img/screen5/good/text.png')
                     self.gift_image = pygame.image.load('img/screen5/good/diamond.png')
@@ -158,7 +158,7 @@ class Game():
 
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
-                            print("нажали на выход из окна завершения игры")
+                            #print("нажали на выход из окна завершения игры")
                             self.paused = False
                             self.curr_menu.run_display = True
                             g = Game()
