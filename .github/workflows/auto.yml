@@ -22,11 +22,5 @@ jobs:
       - name: Install requirements
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
-      - name: What around
-        run: dir
-      - name: Go directory
-        run: cd ..
       - name: Run tests
-        run: tests.py
-      - name: From directory
-        run: cd Team_Development
+        run: python tests.py
