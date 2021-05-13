@@ -1,0 +1,26 @@
+name: autotest
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  auto_test:
+    runs-on: [windows-latest]
+    steps:
+      # Чекаутим код
+      - uses: actions/checkout@master
+      # Устанавливаем python нужной версии
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
+      - name: Install requirements
+        # Устанавливаем зависимости
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: python tests.py
