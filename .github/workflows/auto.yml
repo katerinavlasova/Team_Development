@@ -22,5 +22,7 @@ jobs:
       - name: Install requirements
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
+      - name: Give permission
+        run: chmod u+rwx tests.py
       - name: Run tests
         run: ./tests.py
