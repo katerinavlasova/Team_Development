@@ -10,7 +10,7 @@ on:
 
 jobs:
   auto_test:
-    runs-on: [ubuntu-latest]
+    runs-on: [windows-latest]
     steps:
       # Чекаутим код
       - uses: actions/checkout@master
@@ -22,7 +22,5 @@ jobs:
       - name: Install requirements
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
-      - name: Give permission
-        run: chmod u+rwx tests.py
       - name: Run tests
-        run: ./tests.py
+        run: tests.py
