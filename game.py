@@ -10,6 +10,8 @@ from Timer_Class import *
 PERS_COUNT = 3
 
 
+
+
 class Game():
     def __init__(self):
         pygame.mixer.pre_init(44100, -16, 2)
@@ -28,6 +30,41 @@ class Game():
         self.curr_menu = self.main_menu
         self.icon = pygame.image.load('img/screen4/persons/boy/little.png')
         pygame.display.set_icon(self.icon)
+        
+
+    def mean_needs(self, persons, count_persons):
+        all_social = 0
+        all_dance  = 0
+        all_hunger = 0
+        all_thirst = 0
+        for pers in persons:
+            all_social += pers.get_social()
+            all_dance  += pers.get_dance()
+            all_hunger += pers.get_hunger()
+            all_thirst += pers.get_thirst()
+        result_needs = (all_hunger + all_dance + all_social + all_thirst) / (4*count_persons)
+        return(result_needs)
+    
+
+    def show_mean_needs(self, persons, count_persons):
+        l_x, l_y =  250, 16
+        l_coord = (l_x, l_y)
+        
+        l = self.mean_needs(persons, count_persons)
+        l_font_x = l_x + int(l / 100 * 800)
+        l_font_coord = (l_font_x, l_y)
+
+        frame_coord = (0, 0)
+        
+        line_img = pygame.image.load('img/screen4/bg/big_png.png').convert_alpha()
+        font_img = pygame.image.load('img/screen4/bg/big_font.png').convert_alpha()
+        frame_img = pygame.image.load('img/screen4/bg/big_frame.png').convert_alpha()
+       
+        self.window.blit(line_img, l_coord)
+        self.window.blit(font_img, l_font_coord)
+        self.window.blit(frame_img, frame_coord)
+        return 
+
 
     def game_loop(self):
         timer = Timer()
@@ -52,10 +89,10 @@ class Game():
         while self.playing:
             for event in pygame.event.get():
                 if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1):
-                    print("мышь")
+                    #print("мышь")
                     for pers in persons:
                         if pers.rect.collidepoint(event.pos):
-                            print("НАЖАЛИ НА ЧЕЛА")
+                            #print("НАЖАЛИ НА ЧЕЛА")
                             moving = True
                             moving_pers = pers  # заполмнили, какого персонажа двигаем
                             break
@@ -100,7 +137,7 @@ class Game():
                     all_hunger += pers.get_hunger()
                     all_thirst += pers.get_thirst()
                 result_needs = (all_hunger + all_dance + all_social + all_thirst) / (4*count_persons)
-                print(result_needs)
+                #print(result_needs)
                 if result_needs > 50: # выигрыш
                     self.end_image = pygame.image.load('img/screen5/good/text.png')
                     self.gift_image = pygame.image.load('img/screen5/good/diamond.png')
@@ -121,7 +158,7 @@ class Game():
 
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
-                            print("нажали на выход из окна завершения игры")
+                            #print("нажали на выход из окна завершения игры")
                             self.paused = False
                             self.curr_menu.run_display = True
                             g = Game()
@@ -135,15 +172,17 @@ class Game():
                     self.window.blit(self.end_image, self.rect1)
                     self.window.blit(self.gift_image, self.rect2)
                     pygame.display.update()
-
+            
             self.window.blit(self.display, (0, 0))
             self.window.blit(divan.image, divan.rect)
             self.window.blit(voda.image, voda.rect)
             self.window.blit(dancefloor.image, dancefloor.rect)
             self.window.blit(food.image, food.rect)
+            self.show_mean_needs(persons, PERS_COUNT)
             self.window.blit(timer.image, timer.rect)
             if (moving_pers):
                 moving_pers.show_needs(self)
+            
 
             for i in range(PERS_COUNT):
                 self.window.blit(person_group[i].image, person_group[i].rect)
